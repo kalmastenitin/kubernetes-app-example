@@ -1,0 +1,24 @@
+apiVersion: skaffold/v2beta28
+kind: Config
+metadata:
+  name: practice-services
+build:
+  artifacts:
+  - image: kalmastenitin/fastapi-backend-service
+    context: backend
+    sync:
+      manual: 
+      - src: "backend/"
+        dest: "."
+    docker:
+      dockerfile: Dockerfile    
+deploy:
+  kubectl:
+    manifests:
+    - k8s/ingress.yaml
+    - k8s/mysql-secret.yaml
+    - k8s/workspaces.yaml
+    - k8s/workspace-pvc.yaml
+    - k8s/backend.yaml
+    - k8s/static-server.yaml
+    # - k8s/ingress-storage.yaml

@@ -1,0 +1,77 @@
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: ingress-vredefort
+# spec:
+#   ingressClassName: nginx
+#   rules:
+#   - host: vredefort.com
+#     http:
+#       paths:
+#       - path: /api/v1
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: backend-service
+#             port:
+#               number: 8000
+#       - path: /static
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: static-server
+#             port:
+#               number: 80\
+---
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: test-ingress
+# spec:
+#   ingressClassName: nginx
+#   rules:
+#   - host: vredefort.com
+#     http:
+#       paths:
+#       - path: /api/v1
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: backend-service
+#             port:
+#               number: 8000
+#       - path: /static
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: static-server
+#             port:
+#               number: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: vredefort-ingress  
+  annotations:
+    nginx.ingress.kubernetes.io/add-base-url: "true"    
+spec:  
+  ingressClassName: nginx  
+  rules:
+  - host: vredefort.com
+    http:
+      paths:
+      - path: /api/v1
+        pathType: Prefix
+        backend:
+          service:
+            name: backend-service
+            port:
+              number: 8000
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            # kind: StorageBucket
+            name: static-server
+            port: 
+              number: 80

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: workspace-pv  
+spec:
+  capacity:
+    storage: 1Gi
+  volumeMode: Filesystem
+  storageClassName: standard
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/home/diycam/workspace/k8s/practice_services/workspace"
+    type: DirectoryOrCreate
+  

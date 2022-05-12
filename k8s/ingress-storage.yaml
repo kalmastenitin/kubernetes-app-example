@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-resource-backend
+spec:
+  defaultBackend:
+    resource:
+      apiGroup: vredefort.com
+      kind: StorageBucket
+      name: static-assets
+  rules:
+    - http:
+        paths:
+          - path: /static
+            pathType: Prefix
+            backend:
+              resource:
+                apiGroup: vredefort.com
+                kind: StorageBucket
+                name: static-service

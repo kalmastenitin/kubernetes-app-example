@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: static-server
+  labels:
+    app: static-server
+spec:
+  selector:
+    matchLabels:
+      app: static-server
+  template:
+    metadata:
+      labels:
+        app: static-server
+    spec:
+      containers:
+      - name: static-server-deployment
+        image: nginx
+        ports:
+          - name: http
+            containerPort: 80
+        volumeMounts:
+          - mountPath: /usr/share/nginx/html
+            name: workspace-volume
+      volumes:
+        - name: workspace-volume
+          persistentVolumeClaim:
+            claimName: workspace-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: static-server
+  name: static-server
+spec:  
+  selector:
+    app: static-server
+  ports:
+    - name: tcp
+      port: 80        
