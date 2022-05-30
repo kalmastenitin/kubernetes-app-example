@@ -8,11 +8,11 @@ WORKDIR /home/diycam/code
 
 COPY . /home/diycam/code
 # install dependancies
-COPY --chown=diycam:diycam ./requirements.txt .
+COPY ./requirements.txt .
 RUN pip install --user -r requirements.txt  
 
 # add code
-ADD --chown=diycam:diycam . .
+ADD . .
 
 # make sciprt executable
 # RUN ["chmod", "+x", "wait-for-it.sh"]

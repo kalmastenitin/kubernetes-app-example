@@ -21,6 +21,6 @@ def add_file_to_project(file: UploadFile = File(...)):
             buffer.write(contents)
         print(file_name)
         print(os.path.exists(file_name))
-        return JSONResponse({"message": "success"}, status_code=200)
+        return JSONResponse({"message": f"/static/{file.filename}"}, status_code=200)
     except Exception as e:
         return JSONResponse({"message": str(e)}, status_code=500)

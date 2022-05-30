@@ -16,7 +16,7 @@ def create_database():
             mydb = mysql.connector.connect(
                 host="mysql-service",
                 user="root",
-                password="<password>",
+                password="secretpassword",
             )
             if mydb.is_connected():
                 # console_logger.debug("db_conected successfully")
@@ -25,15 +25,15 @@ def create_database():
                 dbExist = False
                 db_created = False
                 for x in mycursor:
-                    if x[0] == "<dbname>":
+                    if x[0] == "test":
                         dbExist = True
                 if not dbExist:
                     print("creating new db")
                     db_created = True
-                    mycursor.execute(f"CREATE DATABASE <dbname>")
+                    mycursor.execute(f"CREATE DATABASE test")
                 mycursor.execute("SHOW DATABASES")
                 for x in mycursor:
-                    if x[0] == "<dbname>":
+                    if x[0] == "test":
                         dbExist = True
                 return dbExist
             return False
@@ -44,7 +44,7 @@ def create_database():
 
 def create_static():
     static_server = pathlib.PurePath.joinpath(
-        pathlib.Path.cwd().parent, "workspace", "file_storage")
+        pathlib.Path.cwd().parent, "workspace", "static")
     pathlib.Path.mkdir(static_server, mode=777, exist_ok=True)
     return static_server
 
